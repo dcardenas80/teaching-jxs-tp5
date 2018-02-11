@@ -13,10 +13,24 @@
 		<h1>Pokésir</h1>
 
 		<!-- Search -->
-		<div></div>
+		<div ng-controller="pokemonSearch">
+            <input name="id" ng-model="idPokemon" />
+            <p>ID Pokemon: {{idPokemon}}</p>
+            <p>Filtrer par nom: </p><input name="filter" ng-model="pokemonValue"  />
+            <select name="pokemonSelect" id="pokemonSelect" ng-model="idPokemon">
+                <option ng-repeat="pokemon in pokemons | filter:pokemonValue" value="{{pokemon.value}}" >{{pokemon.value}}</option>
+            </select>
+            <button id="go" ng-click="$log.log(idPokemon)">GO !</button>
+        </div>
 
 		<!-- Pokémon information -->
-		<div></div>
+        <div ng-controller="pokemonSearchAPI" >  
+            <p>#{{idPokedex}} {{name}} </p>
+            <ul class="example-animate-container">
+                    <li class="animate-repeat" ng-repeat="ability in abilities">
+                      {{ability.ability.name}} 
+                    </li>
+                  </ul>
 
 	</div>
 
