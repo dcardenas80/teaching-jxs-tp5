@@ -38,11 +38,11 @@ function pokemonSearchAPI($scope,Pokemon){
 function pokemonSearch($scope,$log) {
    
     $scope.pokemons = [
-      {id:'1', value:'Pikachu'},
-      {id:'2', value:'Charmander'},
-      {id:'3', value:'Squirtle'},
-      {id:'4', value:'Bulbasaur'},
-      {id:'5', value:'jigglypuff'}
+      {id:'1', name:'Pikachu'},
+      {id:'2', name:'Charmander'},
+      {id:'3', name:'Squirtle'},
+      {id:'4', name:'Bulbasaur'},
+      {id:'5', name:'jigglypuff'}
     ];
     $scope.$log = $log;
   
@@ -51,3 +51,23 @@ function pokemonSearch($scope,$log) {
         alert("Search Result:"+ $scope.pokemons );
       };
 }  
+
+pokeApp.factory('pokeJoin', function() {
+    var savedPoke = {
+        idNumber : null,
+        pokeName : ""
+
+    };
+     function addPokemon(id, name){
+        savedPoke.idNumber = id;
+        savedPoke.pokeName = name;
+     }
+     function getPokemon(){
+        return savedPoke;
+     }
+    // factory function body that constructs shinyNewServiceInstance
+    return  {
+        addPokemon: addPokemon,
+        getPokemon: getPokemon
+      };
+  }); 

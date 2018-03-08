@@ -14,13 +14,13 @@
 
 		<!-- Search -->
 		<div ng-controller="pokemonSearch">
-            <input name="id" ng-model="idPokemon" />
-            <p>ID Pokemon: {{idPokemon}}</p>
-            <p>Filtrer par nom: </p><input name="filter" ng-model="pokemonValue"  />
-            <select name="pokemonSelect" id="pokemonSelect" ng-model="idPokemon">
-                <option ng-repeat="pokemon in pokemons | filter:pokemonValue" value="{{pokemon.value}}" >{{pokemon.value}}</option>
+            <input name="id" ng-model="pokemon.id" />
+            <p>ID Pokemon: {{pokemon.id}}</p>
+            <p>Filtrer par nom: </p><input name="filter" ng-model="pokemon.name"  />
+            <select name="pokemonSelect" id="pokemonSelect" ng-model="pokemon">
+                <option ng-repeat="pokemon in pokemons | filter:pokemon.name" value="{{pokemon.name}}" >{{pokemon.name}}</option>
             </select>
-            <button id="go" ng-click="$log.log(idPokemon)">GO !</button>
+            <button id="go" ng-click="$log.log(pokemon)">GO !</button>
         </div>
 
 		<!-- Pokémon information -->
