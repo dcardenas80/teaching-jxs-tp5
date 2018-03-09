@@ -17,15 +17,15 @@
             <input name="id" ng-model="pokemon.id" />
             <p>ID Pokemon: {{pokemon.id}}</p>
             <p>Filtrer par nom: </p><input name="filter" ng-model="pokemon.name"  />
-            <select name="pokemonSelect" id="pokemonSelect" ng-model="pokemon">
-                <option ng-repeat="pokemon in pokemons | filter:pokemon.name" value="{{pokemon.name}}" >{{pokemon.name}}</option>
+            <select name="pokemonSelect" id="pokemonSelect" ng-model="pokemon.id">
+                <option ng-repeat="pokemon in pokemons | filter:pokemon.name" value="{{pokemon.id}}" >{{pokemon.name}}</option>
             </select>
-            <button id="go" ng-click="$log.log(pokemon)">GO !</button>
+            <button id="go" ng-click="searchPok(pokemon)">GO !</button>
         </div>
 
 		<!-- Pokémon information -->
-        <div ng-controller="pokemonSearchAPI" >  
-            <p>#{{idPokedex}} {{name}} </p>
+        <div ng-hide="myValue" class="ng-hide" ng-controller="pokemonSearchAPI" >  
+            <p>#{{poke.id}} {{poke.name}}  </p>
             <ul class="example-animate-container">
                     <li class="animate-repeat" ng-repeat="ability in abilities">
                       {{ability.ability.name}} 
