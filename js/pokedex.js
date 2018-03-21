@@ -1,6 +1,6 @@
 var pokeApp = angular.module('pokedex', ['ngResource']).service('pokeJoin',pokeJoin);
 pokeApp.controller('pokemonSearch', ['$scope', '$log', '$http','getPokemonList','pokeJoin',pokemonSearch]);
-pokeApp.controller('pokemonSearchAPI', ['$scope','getPokemon', 'pokeJoin' , pokemonSearchAPI]);
+pokeApp.controller('pokemonSearchAPI', ['$scope','getPokemon', 'getDesc','pokeJoin' , pokemonSearchAPI]);
 
 
 // With this you can inject POKEAPI url wherever you want
@@ -14,21 +14,19 @@ pokeApp.factory('getPokemon', function($resource, POKEAPI) {
         get: { method: "GET"}});
      // Note the full endpoint address
 });
+pokeApp.factory('getDesc', function($resource, POKEAPI) {
+    return $resource(POKEAPI +"/api/v2/characteristic/:id/", {}, {
+        get: { method: "GET"}});
+     // Note the full endpoint address
+});
+
 pokeApp.factory('getPokemonList', ['$resource', 'POKEAPI', function($resource, POKEAPI) {
     return $resource(POKEAPI + "/api/v2/pokemon/?limit=802&offset=0",{},{
         get: {method: "GET"},
     });
 }]);
 
-/**
- * Controlleur charge de la recherche de pokemons
- * 
- * */  
 
- /**
- * Controlleur charge de la recherche de pokemons
- * 
- * */ 
 function pokemonSearch($scope,$log, $http,getPokemonList,pokeJoin) {
    
     $scope.pokemons = [
@@ -60,14 +58,22 @@ function pokemonSearch($scope,$log, $http,getPokemonList,pokeJoin) {
     };
 };
 
-function pokemonSearchAPI($scope,getPokemon,pokeJoin){
+function pokemonSearchAPI($scope,getPokemon,getDesc, pokeJoin){
     $scope.service = pokeJoin;
   
     console.log(pokeJoin.getPokemon());
     $scope.getItem = function() {
         $scope.poke = getPokemon.get({id: pokeJoin.getPokemon()})
-    
+        console.log($scope.poke.abilities);
+        $scope.desc = getDesc.get({id: pokeJoin.getPokemon()})
     };
     $scope.$watch('service.getPokemon()', $scope.getItem);
 
 }
+
+pokeApp.directive('pokepedia', function() {
+    return {
+      restrict: 'E',
+      templateUrl: 'pokepedia.html'
+    };
+  });

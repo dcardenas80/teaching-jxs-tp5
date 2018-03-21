@@ -1,0 +1,36 @@
+<div class="container">
+<h1>Pokésir</h1>
+
+<!-- Search -->
+<div ng-controller="pokemonSearch">
+    <input name="id" ng-model="pokemon.id" />
+    <p>ID Pokemon: {{pokemon.id}}</p>
+    <p>Filtrer par nom: </p><input name="filter" ng-model="pokemon.name"  />
+    <select name="pokemonSelect" id="pokemonSelect" ng-model="pokemon.id">
+        <option ng-repeat="pokemon in pokemons | filter:pokemon.name" value="{{pokemon.id}}" >{{pokemon.name}}</option>
+    </select>
+    <button id="go" ng-click="searchPok(pokemon)">GO !</button>
+</div>
+
+<!-- Pokémon information -->
+<div ng-hide="myValue" class="ng-hide" ng-controller="pokemonSearchAPI">
+<div class="left" style="width:40%;float:left;margin:0;position:relative;">
+    <img src="{{poke.sprites.front_default}}"  style="float:left;width:200;height:200;"><br>
+    <h3 style="float:right">#{{poke.id}} {{poke.name}} </h3><br>
+    <div ng-repeat="desc in desc.descriptions" style="float:right;margin-left: 50%;position:relative;" ng-if="desc.language.name == 'fr'">
+       Description: {{desc.description}}
+     </div>
+    
+</div>
+
+ <div  style="width:80%;float:left;margin:0;position:relative;" >
+        <h3>Aptitudes</h3>
+    <div ng-repeat="abi in poke.abilities">
+            <ul>
+                    <li>{{abi.ability.name}}</li>
+                 </ul>
+    </div>
+       
+</div>
+
+</div>
